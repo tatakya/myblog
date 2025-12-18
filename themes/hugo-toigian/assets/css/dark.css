@@ -1,0 +1,19 @@
+@import "assets/css/chroma/rose-pine.css";
+
+:root.dark {
+  --base: var(--rp-main-base);
+  --surface: var(--rp-main-surface);
+  --overlay: var(--rp-main-overlay);
+  --muted: var(--rp-main-muted);
+  --subtle: var(--rp-main-subtle);
+  --text: var(--rp-main-text);
+  --highlight-low: var(--rp-main-hightlight-low);
+  --highlight-med: var(--rp-main-hightlight-med);
+  --highlight-high: var(--rp-main-hightlight-high);
+  --love: var(--rp-main-love);
+  --gold: var(--rp-main-gold);
+  --rose: var(--rp-main-rose);
+  --pine: var(--rp-main-pine);
+  --foam: var(--rp-main-foam);
+  --iris: var(--rp-main-iris);
+}

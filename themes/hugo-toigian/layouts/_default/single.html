@@ -1,0 +1,18 @@
+{{ define "main" }}
+  <h1>{{ .Title | emojify }}</h1>
+  <!-- Post meta -->
+  {{- partial "date" .Date -}}{{ if ne .Date .Lastmod }}<nobr class="text-sm text-muted">&#8674&nbsp;</nobr>{{- partial "date" .Lastmod -}}{{ end }}
+
+  {{- partial "tag" . -}}
+  {{- partial "toc.html" . -}}
+  <!-- Content -->
+  {{- partial "custom/content-before.html" . -}}
+  <div class="content">{{ .Content | emojify }}</div>
+  {{- partial "custom/content-after.html" . -}}
+  <!-- Comments block -->
+  {{ if and .Content (default true (default .Site.Params.comments
+    .Params.comments))
+  }}
+    <div class="mt-16">{{- partial "comments" . -}}</div>
+  {{ end }}
+{{ end }}

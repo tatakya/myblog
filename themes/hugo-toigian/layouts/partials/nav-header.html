@@ -1,0 +1,40 @@
+<div
+  class="lowercase italic mx-auto flex w-full max-w-content items-center justify-between"
+>
+  <nav class="mr-3">
+    <ol class="flex text-md items-center">
+      {{ template "breadcrumbnav" (dict "p1" . "p2" .) }}
+    </ol>
+  </nav>
+  <nav class="ml-3">
+    <ul class="flex text-md whitespace-nowrap">
+      {{ range $.Site.Menus.nav }}
+        <li class="pl-2">
+          <a href="{{ .URL | relURL }}" class="tracking-wide hover:underline"
+            >{{ .Name }}</a
+          >
+        </li>
+      {{ end }}
+    </ul>
+  </nav>
+</div>
+
+{{ define "breadcrumbnav" }}
+  {{ if .p1.Parent }}
+    {{ template "breadcrumbnav" (dict "p1" .p1.Parent "p2" .p2 ) }}
+  {{ else if not .p1.IsHome }}
+    {{ template "breadcrumbnav" (dict "p1" .p1.Site.Home "p2" .p2 ) }}
+  {{ end }}
+  {{ $attr := "text-muted focus:underline focus:outline-none pr-1 whitespace-nowrap" }}
+  {{ if eq .p1 .p2 }}
+    {{ $attr = "focus:underline focus:outline-none font-bold pr-1 hidden md:block" }}
+  {{ end }}
+  <li>
+    {{ $title := .p1.Title }}
+    {{ if .p1.IsHome }}{{ $title = .p1.Site.Title }}{{ end }}
+    <a href="{{ .p1.RelPermalink }}" class="{{ $attr }}">{{ $title }}</a>
+  </li>
+  {{ if ne .p1 .p2 }}
+    <li class="{{ $attr }}">/</li>
+  {{ end }}
+{{ end }}

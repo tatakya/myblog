@@ -1,0 +1,304 @@
+:root {
+  --font-sans: sans-serif;
+  --font-mono: monospace, monospace;
+  --font-serif: serif;
+  --page-top: 64px;
+  --page-gutter: 24px;
+  --header-height: 48px;
+  --footer-height: 96px;
+  --sidebar-top: 72px;
+
+  --content-width: 40rem;
+  --content-height: calc(100vh - (var(--page-top) * 2) - var(--footer-height));
+
+  @media (min-width: 640px) {
+    --page-top: 192px;
+    --page-gutter: 48px;
+    --footer-height: 48px;
+  }
+}
+
+html {
+  @apply scroll-smooth font-sans tabular-nums;
+
+  @media (prefers-reduced-motion: reduce) {
+    @apply scroll-auto;
+  }
+}
+
+::-webkit-scrollbar {
+  width: 0; /* Remove scrollbar space */
+  background: transparent; /* Optional: just make scrollbar invisible */
+}
+
+body {
+  @apply bg-base text-text text-md antialiased selection:bg-subtle selection:text-surface break-normal;
+}
+
+& a {
+  @apply break-all;
+}
+
+/* ################################# */
+/* #         Overall design        # */
+/* ################################# */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  @apply font-bold pt-6 pb-4 tracking-tight;
+}
+
+h1 {
+  @apply text-4xl mb-8;
+}
+
+h2 {
+  @apply text-3xl mt-12 mb-6;
+  counter-increment: h2;
+  counter-reset: h3;
+}
+
+h3 {
+  @apply text-2xl mt-8 mb-4;
+  counter-increment: h3;
+  counter-reset: h4;
+}
+
+h4 {
+  @apply text-xl mt-6 mb-4;
+  counter-increment: h4;
+}
+
+h5 {
+  @apply text-lg mt-4 mb-2;
+}
+
+h6 {
+  @apply text-base font-semibold mt-4 mb-2;
+}
+
+/* nested counters */
+h2::before {
+  @apply text-muted mr-2 -ml-3;
+  content: counter(h2) ". ";
+}
+
+h3::before {
+  @apply text-muted mr-2 -ml-3;
+  content: counter(h2) "." counter(h3) ". ";
+}
+
+h4::before {
+  @apply text-muted mr-2 -ml-3;
+  content: counter(h2) "." counter(h3) "." counter(h4) ". ";
+}
+
+h5::before {
+  content: counter(h2) "." counter(h3) "." counter(h4) "." counter(h5) ". ";
+}
+
+[id] {
+  @apply scroll-mt-header-height;
+}
+
+p {
+  @apply leading-relaxed py-2;
+}
+
+strong {
+  @apply font-semibold;
+}
+
+ul,
+ol {
+  @apply space-y-1 leading-relaxed;
+}
+
+nav ul,
+nav ol {
+  @apply space-y-0;
+}
+
+article > *,
+section > * {
+  @apply mt-5;
+}
+
+article h2,
+article h3,
+article h4,
+article h5,
+article h6,
+section h2,
+section h3,
+section h4,
+section h5,
+section h6 {
+  @apply mt-10;
+}
+
+/* Code block */
+code {
+  /* Inline code style */
+  @apply rounded px-2 py-1 bg-text font-mono text-base text-md shadow-sm;
+}
+
+code > pre {
+  @apply font-mono text-md;
+}
+
+pre {
+  @apply overflow-auto p-4 my-6 rounded-md shadow-md border border-muted;
+}
+
+pre > code {
+  /* Disable inline code style */
+  @apply rounded-none p-0 bg-transparent font-mono text-md border-0 shadow-none;
+}
+
+/* ################################# */
+/* #       Table of contents       # */
+/* ################################# */
+@media screen and (min-width: 1080px) {
+  #toc {
+    @apply fixed top-sidebar-top left-page-gutter z-40 w-1/4 h-3/4 overflow-auto px-page-gutter py-sidebar-top;
+  }
+}
+
+#toc summary {
+  @apply font-bold;
+}
+
+#toc-list ol li {
+  @apply list-outside;
+}
+
+#toc-list ol {
+  @apply pl-3 m-1 border-l-2 text-sm text-muted;
+  counter-reset: tocitem;
+}
+
+#toc-list > #TableOfContents > ol {
+  @apply border-0;
+}
+
+#toc-list a {
+  @apply inline-block w-full rounded px-3 leading-relaxed transition-none;
+}
+
+#toc-list ol > li {
+  @apply block my-1;
+  counter-increment: tocitem;
+}
+
+#toc-list li > a::before {
+  @apply mr-2 -ml-3 font-semibold;
+  content: counters(tocitem, ".") ".";
+}
+
+#toc-list li > a {
+  @apply hover:text-text;
+}
+
+#toc-list li > a > code {
+  @apply text-xs;
+}
+
+/* ###################### */
+/* #       Figure       # */
+/* ###################### */
+figure {
+  img {
+    @apply block mx-auto rounded-lg drop-shadow-lg;
+  }
+
+  figcaption {
+    @apply px-5 py-3 text-center text-muted italic;
+  }
+}
+
+/* ################### */
+/* #       Tag       # */
+/* ################### */
+#tag {
+  @apply p-1 text-muted italic underline;
+}
+
+#tag:before,
+#tag:after {
+  @apply text-muted inline-block no-underline;
+}
+
+#tag:before {
+  content: "[#";
+}
+
+#tag:after {
+  content: "]";
+}
+
+.content {
+  /* ##################### */
+  /* #       Links       # */
+  /* ##################### */
+  & a {
+    @apply italic p-1 font-medium;
+  }
+
+  a::before,
+  a::after {
+    @apply text-muted inline-block no-underline;
+  }
+
+  /* a::before {
+    content: "{";
+    @apply pr-1;
+  }
+
+  a::after {
+    content: "}";
+    @apply pl-1;
+  } */
+
+  a:hover {
+    @apply underline decoration-muted underline-offset-2;
+  }
+
+  /* ##################### */
+  /*         Table         */
+  /* ##################### */
+  table {
+    @apply overflow-auto block my-4 min-w-full divide-y-2 text-sm;
+  }
+
+  table thead {
+    @apply ltr:text-left rtl:text-right;
+  }
+  table tbody {
+    @apply divide-y;
+  }
+
+  tr th {
+    @apply font-medium;
+  }
+
+  tr th,
+  tr td {
+    @apply px-4 py-2;
+  }
+
+  img {
+    @apply my-4;
+  }
+
+  ul {
+    @apply list-disc ml-6;
+  }
+
+  ol {
+    @apply list-decimal ml-6;
+  }
+}
