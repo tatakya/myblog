@@ -1,8 +1,4 @@
-# baseURL = 'https://example.org/'
-# languageCode = 'en-us'
-# title = 'My New Hugo Site'
-
-baseURL = 'http://example.org/'
+baseURL = 'http://tatakya.dev/'
 languageCode = 'zh-cn'
 title = 'tatakya'
 theme = "hugo-toigian"
@@ -48,12 +44,12 @@ email = "kakaxi1ya@outlook.com"
 # The left side navbar at the top
 [menu]
   [[menu.nav]]
-  name = "About"
+  name = "关于"
   url = "/about"
   weight = 2
 
   [[menu.nav]]
-  name = "Posts"
+  name = "文章"
   url = "/posts"
   weight = 3
 
